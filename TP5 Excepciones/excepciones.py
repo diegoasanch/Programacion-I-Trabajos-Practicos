@@ -100,22 +100,16 @@ def opcion(texto='Si o no?: '):
 def imprimeNums(N):
     'Imprime uno por uno los numeros enteros entre 1 y N'
     
-    x = 1
-    while True:
+    for i in range(1, N+1):
         try:
-            for i in range(x, N+1):
-                x = i
-                print(i)
-            else:
-                print(f'Se imprimieron todos los numeros entre 1 y {N}')
-                break
+            print(i)
         except KeyboardInterrupt:
             print()
-            salir = opcion('Desea abandonar la partida?: ')
-            if salir:
+            if opcion('Desea abandonar la impresion?: '):
                 print('\n\nListado de numeros interrumpido!')
                 break
-            continue
+    else:
+        print(f'Se imprimieron todos los numeros entre 1 y {N}')
     
 def raizCuadrada(n):
     '''Calcula la raiz cuadrada de un numero usando math.sqrt
