@@ -18,7 +18,12 @@ def __main__():
     if lista != []:
         print('\nA continuacion ingrese numeros para buscar su posicion\n')
         while True:
-            buscaNum(lista)
+            pos, n = buscaNum(lista)
+            if pos != -1:
+                print(f'El elemento {n} se encuentra en la posicion {pos} de la lista.')
+            else:
+                print('No se pudo concretar la busqueda.')
+
             if not opcion('Desea buscar otro numero?: '):
                 break
             print()

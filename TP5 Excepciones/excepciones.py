@@ -32,19 +32,19 @@ def ingresoNatural(texto='Ingrese un numero natural: '):
             raise
     return num
 
-def ingresaEntero(text='Ingrese un numero entero: ', errMsg='Debe ingrear un int.', escape='salir'):
+def ingresaEntero(text='Ingrese un numero entero: ', errMsg='Debe ingrear un int.', escape=-1):
     'Valida el ingreso de un numero natural'
 
     while True:
         try:
             x = int(input(text))
             if x == escape:
-                break
+                raise KeyboardInterrupt
             break
         except ValueError:
             print(f'\n{errMsg}')
         except KeyboardInterrupt:
-            x = -1
+            x = None
             break
     return x
 
@@ -145,18 +145,18 @@ def buscaNum(v, intentos=3):
         try:
             n = ingresaEntero(text='Ingrese un numero para buscar: ')
             if n == -1:
-                break
+                raise KeyboardInterrupt                
             pos = v.index(n)
+            break
         except ValueError:
             if not intentos:
                 print('No tiene mas intentos de busqueda.')
                 break
             print(f'El elemento no esta en la lista. Quedan {intentos} intentos.')
             intentos -= 1
-        else:
-            print()
-            if pos != -1:
-                print(f'El elemento {n} se encuentra en la posicion {pos} de la lista.')
-            else:
-                print('No se pudo concretar la busqueda.')
+        except KeyboardInterrupt:
+            print('Se interrumpio la busqueda!')
+            pos = -1
+            n = None
             break
+    return pos, n
