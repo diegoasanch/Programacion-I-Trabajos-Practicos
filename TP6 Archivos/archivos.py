@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, sample
 
 suma_matriz = lambda matriz: sum([sum([int(x) for x in fila]) for fila in matriz])
 'Devuelve la suma de todos los elementos de una matriz'
@@ -18,7 +18,6 @@ def elimina_comentarios(archivo):
                 continue
             if com in linea:
                 str_abierto = False
-
                 for car in linea:
                     if car in comillas:
                         str_abierto = not str_abierto
@@ -89,27 +88,64 @@ def ordena_matriz_mes(matriz):
         matriz_mes[dia - 1][mes - 1] = lluvia
     return matriz_mes
 
-def imprime_matriz(archivo, cols=12, sep=5):
-    'Imprime por pantalla una matriz extraida de un archivo'
+def imprime_matriz(archivo, missing='.', sep=5, screen=100):
+    '''Imprime por pantalla una matriz extraida de un archivo
+    
+    Recibe Archivo para sacar la info
+    opcional = missing (repr de dato faltante)
+            separacion entre columnas, ancho de pantalla
+    '''
     matriz = extrae_matriz(archivo)
     matriz_ord = ordena_matriz_mes(matriz)
+    cols = len(matriz_ord[0])
 
-    print('\n\n')
-    print('Reportaje de lluvias del año.'.center(65))
-    print('Columnas = mes, filas = dias, cada celda representa lluvia en mm.\n')
+    print('\n\n' + 'Reportaje de lluvias del año.'.center(screen))
+    print('Columnas = mes, filas = dias, cada celda representa lluvia en mm.'.center(screen))
+    print(f'"{missing}" representa 0 lluvia registrada.'.center(screen) + '\n')
     
-    print(' ' * sep, end='')
-    for i in range(cols):
-        print(str(i + 1).center(sep), end='')
-    print()
-    print((' ' * sep) + ('-' * (sep * (cols))))
+    output = ''
+    linea = ' '.center(sep)
+    for i in range(cols): # Etiquetas de columnas (meses)
+        linea += str(i + 1).center(sep)
+    output += linea.center(screen) + '\n'
+    output += ((' ' * sep) + ('-' * (sep * (cols)))).center(screen) + '\n'
+    # Separador
+
     for i, fila in enumerate(matriz_ord):
-        print(str(i + 1).center(sep-1) + '|', end='')
+        linea = ''
+        linea += str(i + 1).center(sep-1) + '|' # Etiqueta de dia
+
         for item in fila:
-            print(str(item).center(sep), end='')
-        print()
-    print()
+            it = item
+            if it == 0: # dia sin lluvia
+                it = missing
+            linea += str(it).center(sep) # Dato de lluvia
+        output += linea.center(screen) + '\n'
+    print(output)
     
     lluvia = suma_matriz(matriz_ord)
-    print(f'La lluvia total del año fue de {lluvia}mm'.center(65))
+    print(f'La lluvia total del año fue de {lluvia}mm'.center(screen))
     
+def clasifica_nombres(nombres):
+    '''Retorna 3 listas con los nombres que pertenecen a los archivos ARMENIA,
+    ITALIA Y ESPANIA respectivamente
+
+    Recibe: nombre del archivo con nombres
+    Retorna: 3 listas
+    '''
+    arm, ita, esp = [], [], []
+    for nombre in nombres:
+        termina = nombre.split(',')[0][-3:].lower() # Ultimas letras de apellido
+        nomb = nombre.strip('\n')
+        if  termina == 'ian':
+            arm.append(nomb)
+        elif termina == 'ini':
+            ita.append(nomb)
+        elif termina[-2:] == 'ez':
+            esp.append(nomb)
+    return arm, ita, esp
+
+def escribir_lista(archivo, lista):
+    'Escribe el contenido de lista representado como str en filename'        
+    for nombre in lista:
+        archivo.write(nombre + '\n')
