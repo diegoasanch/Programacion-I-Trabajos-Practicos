@@ -18,24 +18,28 @@ from archivos import clasifica_nombres, escribir_lista
 def __main__():
     
     try:
-        filename = 'nombres.txt'
-        archivo = open(filename, 'r')
-        arm, ita, esp = clasifica_nombres(archivo)
-        archivo.close()
-        
         archivos = ['ARMENIA.TXT', 'ITALIA.TXT', 'ESPANA.TXT']
-        listas = [arm, ita, esp]
+        finales = ['ian', 'ini', 'ez']
+
+        filename = 'nombres.txt'
+        nombres = open(filename, 'r')
+        
+        for i, pais in enumerate(archivos):
+            nombres.seek(0) # reseteamos  el archivo abierto a la primera linea
+            clasif = clasifica_nombres(nombres, finales[i])
+            nombres_pais = open(pais, 'w')
+            escribir_lista(nombres_pais, clasif)
+            nombres_pais.close()
+
+        nombres.close()
+
     except FileNotFoundError:
         print(f'No se consiguio el archivo {filename}')
-    else:
-        for i, nombre in enumerate(archivos):
-            try:
-                archivo = open(nombre, 'w+')
-                escribir_lista(archivo, listas[i])
-                archivo.close()
-            except IOError:
-                print(f'No se pudo escribir el archivo {nombre}')
-                continue
+    finally:
+        if nombres != None:
+            nombres.close()
+        if nombres_pais != None:
+            nombres_pais.close()
 
 if __name__ == "__main__":
     __main__()

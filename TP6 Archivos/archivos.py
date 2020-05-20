@@ -126,24 +126,20 @@ def imprime_matriz(archivo, missing='.', sep=5, screen=100):
     lluvia = suma_matriz(matriz_ord)
     print(f'La lluvia total del año fue de {lluvia}mm'.center(screen))
     
-def clasifica_nombres(nombres):
-    '''Retorna 3 listas con los nombres que pertenecen a los archivos ARMENIA,
-    ITALIA Y ESPANIA respectivamente
-
-    Recibe: nombre del archivo con nombres
-    Retorna: 3 listas
+def clasifica_nombres(nombres, final):
+    '''Clasifica los nombres del archivo nombres que terminen con el str final
+    Recibe: nombres = archivo con nombres abierto ,final: letras finales del
+            grupo de nombres a seleccionar
+    Retorna: lista con nombres filtrados
     '''
-    arm, ita, esp = [], [], []
+    ult = len(final) * (-1)
+    clasf = []
     for nombre in nombres:
-        termina = nombre.split(',')[0][-3:].lower() # Ultimas letras de apellido
+        termina = nombre.split(',')[0][ult:].lower() # Ultimas letras de apellido
         nomb = nombre.strip('\n')
-        if  termina == 'ian':
-            arm.append(nomb)
-        elif termina == 'ini':
-            ita.append(nomb)
-        elif termina[-2:] == 'ez':
-            esp.append(nomb)
-    return arm, ita, esp
+        if  termina == final:
+            clasf.append(nomb)
+    return clasf
 
 def escribir_lista(archivo, lista):
     'Escribe el contenido de lista representado como str en filename'        
