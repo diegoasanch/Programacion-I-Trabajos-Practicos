@@ -35,6 +35,8 @@ from archivos import GrabarRangoAlturas, GrabarPromedio, MostrarMasAltos, escrib
 
 def __main__():
     try:
+        arch_deportes, arch_promedios = None, None
+
         deportes = 'deportes.txt'
         promedios = 'promedios.txt'
 
@@ -53,7 +55,11 @@ def __main__():
 
 
     except IOError:
-        print(f'Error, no se logro abrir el archivo "{deportes}"')
+        print('Error, no se logro abrir alguno de los archivos')
+    finally:
+        for arch in [arch_deportes, arch_promedios]:
+            if arch != None:
+                arch.close()
 
 if __name__ == "__main__":
     __main__()
