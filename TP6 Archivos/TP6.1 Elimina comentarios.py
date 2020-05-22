@@ -6,7 +6,7 @@ simples o dobles) y que también se considera comentario a las cadenas de
 documentación (docstrings).
 '''
 
-from archivos import elimina_comentarios, opcion
+from archivos import elimina_comentarios, opcion, escribir_lista
 
 def __main__():
 
@@ -21,7 +21,7 @@ def __main__():
 
             # Lo abrimos en modo escritura para escribir el texto limpio
             archivo = open(filename, 'w')
-            archivo.writelines(texto_limpio)
+            escribir_lista(archivo, texto_limpio)
             archivo.close()
             break
 
