@@ -16,6 +16,24 @@ def masDeDosCar(sec):
         valido = True
     return valido
 
+def direccionValida(direccion):
+    'Determina si una direccion de email es valida'
+    try:
+        valido = False
+        email = direccion.strip()
+        assert(' ' not in email) # No tiene espacios en el correo
+        partes = email.split('@')
+        if len(partes) == 2: # Check tiene partes a ambos lados del @
+            sitio = partes[1]
+            if '.' in sitio and '.' not in [sitio[-1], partes[0][0]]:  # dominio tiene . pero no al principio ni final 
+                dom, *extension = sitio.split('.')
+                assert (masDeDosCar([dom] + extension)) # esas extensiones tienen dos o mas caracteres
+                valido = True
+        raise ValueError(f'La direccion "{email}" no es una direccion valida.')
+    except (AssertionError, ValueError):
+        pass
+    return valido
+        
 def extrae_info(archivo):
     '''
     Extrae la informacion del archivo csv de mails
@@ -25,22 +43,15 @@ def extrae_info(archivo):
     dominios = []
     veces = []
     for linea in archivo:
-        try:
-            assert(' ' not in linea.strip()) # No tiene espacios en el correo
-            comp = linea.strip().split('@')
-            assert (len(comp) == 2) # Check tiene partes a ambos lados del @
-            sitio = comp[1]
-            assert (sitio[-1] != '.') # Check mail no termina en .
-            assert ('.' in sitio) # tiene . la direccion 
-            dom, *extension = sitio.split('.')
-            assert (masDeDosCar([dom] + extension)) # esas extensiones tienen dos o mas caracteres
-
-            if sitio not in dominios:
-                dominios.append(sitio)
+        if direccionValida(linea):
+            dom = linea.strip().split('@')[1]
+            if dom not in dominios:
+                dominios.append(dom)
                 veces.append(1)
             else:
-                veces[dominios.index(sitio)] += 1
-        except AssertionError:
+                veces[dominios.index(dom)] += 1
+            continue
+        else:
             invalidos += 1
     return invalidos, dominios, veces
 
