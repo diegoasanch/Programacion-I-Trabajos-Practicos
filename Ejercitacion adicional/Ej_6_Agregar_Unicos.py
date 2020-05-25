@@ -16,7 +16,7 @@ def agregarUnicos(lista, valor):
     if not existeEnlista(lista, valor):
         lista.append(valor)
     else:
-        raise ValueError(f'Imposible agregar elementos duplicados => "valor"')
+        raise ValueError(f'Imposible agregar elementos duplicados => "{valor}"')
 
 def __main__():
 
