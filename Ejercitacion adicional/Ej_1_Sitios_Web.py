@@ -35,14 +35,13 @@ def cargaSitiosWeb():
 
 def imprimeListado(sitios):
     'Imprime un listado de los sitios web cargados'
-    for sitio in sitios: # Listado
+    for sitio in sitios:
         print(f' - {sitio}')
 
 def imprimeListadoPais(sitios):
     'Imprime un listado de sitios registrados por pais'
     paises = []
     cant = []
-    # prev = sitios[0].split('.')[-1] # Pais de la primera direccion
     for sitio in sitios:
         pais = sitio.split('.')[-1]
         if pais == 'com':
@@ -84,7 +83,7 @@ def __main__():
     print('Sitios cargados')
     imprimeListado(sitios)
     print(f'Hay {arg} sitios registrados en argentina')
-    
+
     print('\nDirecciones registradas por pais.')
     imprimeListadoPais(sitios)
 
