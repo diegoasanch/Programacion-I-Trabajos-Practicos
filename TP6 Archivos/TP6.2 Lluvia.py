@@ -24,7 +24,7 @@ def __main__():
         archivo = open(filename, 'r')
         imprime_matriz(archivo)
         archivo.close()
-        
+
 
     except FileNotFoundError:
         print(f'El archivo {filename} no esxiste en la ubicacion definida')
