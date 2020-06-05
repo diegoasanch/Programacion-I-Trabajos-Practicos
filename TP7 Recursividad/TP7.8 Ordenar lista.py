@@ -30,18 +30,20 @@ def ingreso_lista():
         v.append(num)
     return v
 
-def ordenar_lista(lista):
+def ordenar_lista(lista, pos=0):
     'Ordena una lista de menor a mayor recursivamente'
-    if len(lista) == 1:
-        return lista
+    if pos == len(lista):
+        return True
     else:
-        return [lista.pop(lista.index(min(lista)))] + ordenar_lista(lista)
+        pos_min = pos + lista[pos:].index(min(lista[pos:]))
+        lista[pos], lista[pos_min] = lista[pos_min], lista[pos]
+        ordenar_lista(lista, pos + 1)
 
 def __main__():
 
     lista = ingreso_lista()
     if len(lista) >= 2:
-        lista = ordenar_lista(lista)
+        ordenar_lista(lista)
         print(f'La lista ordenada es {lista}')
     else:
         print('Debe ingresar al menos dos elementos')

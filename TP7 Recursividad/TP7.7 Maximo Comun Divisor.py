@@ -47,16 +47,13 @@ def lista_unpack(lista):
 def MCD(X, Y=None):
     '''
     Calcula el maximo comun divisor de dos o mas numeros
-    Si son mas de dos numeros, recibe para X una lista e Y el ultimo numero
+    Recibe lista con 2 o mas elementos
     '''
     if Y == None:
         X, Y = lista_unpack(X)
     if type(X) == list:
-        if len(X) > 1:
-            X1, X2 = lista_unpack(X)
-            return MCD(MCD(X1, X2), Y)
-        else:
-            return MCD(X[0], Y)
+        X1, X2 = lista_unpack(X)
+        return MCD(MCD(X1, X2), Y)
     elif X == Y:
         return X
     elif X < Y:
@@ -72,7 +69,7 @@ def __main__():
             resultado = MCD(lista)
             print(f'El MCD de {lista} es = {resultado}')
         except RecursionError:
-            print('Se ha alcanzado el limite de recursion de python.')
+            print('\n* No se pudo calcular el MCM debido a que se alcanzo el limite de recursion de python.')
     else:
         print('Debe ingresar al menos dos numeros')
 
