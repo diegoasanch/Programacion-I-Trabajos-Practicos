@@ -50,12 +50,18 @@ def escribir_matriz(data, filename):
             archivo.write(';'.join(fila) + '\n')
         archivo.close()
 
-def extrae_matriz(archivo, sep=';'):
+def extrae_matriz(filename, sep=';'):
     '''Extrae una matriz de un archivo, cada linea es una fila
     cada columna se separa con "sep"'''
-    matriz = []
-    for linea in archivo:
-        matriz.append(linea.strip('\n').split(sep))
+    try:
+        archivo = open(filename, 'r')
+    except FileNotFoundError:
+        raise IOError(f'El archivo {filename} no esxiste en la ubicacion definida')
+    else:
+        matriz = []
+        for linea in archivo:
+            matriz.append(linea.strip('\n').split(sep))
+        archivo.close()
     return matriz
 
 def ordena_matriz_mes(matriz):
@@ -66,58 +72,51 @@ def ordena_matriz_mes(matriz):
         matriz_mes[dia - 1][mes - 1] += lluvia
     return matriz_mes
 
-def imprime_matriz(filename, missing='.', sep=5, screen=100):
+def imprime_matriz(matriz_ord, missing='.', sep=5, screen=100):
     '''Imprime por pantalla una matriz extraida de un archivo
     
     Recibe Archivo para sacar la info
     opcional = missing (repr de dato faltante)
             separacion entre columnas, ancho de pantalla
     '''
-    try:
-        archivo = open(filename, 'r')
-    except FileNotFoundError:
-        raise IOError(f'El archivo {filename} no esxiste en la ubicacion definida')
-    else:
-        matriz = extrae_matriz(archivo)
-        matriz_ord = ordena_matriz_mes(matriz)
-        cols = len(matriz_ord[0])
+    cols = len(matriz_ord[0])
 
-        print('\n\n' + 'Reportaje de lluvias del año.'.center(screen))
-        print('Columnas = mes, filas = dias, cada celda representa lluvia en mm.'.center(screen))
-        print(f'"{missing}" representa 0 lluvia registrada.'.center(screen) + '\n')
-        
-        output = ''
-        linea = ' '.center(sep)
-        for i in range(cols): # Etiquetas de columnas (meses)
-            linea += str(i + 1).center(sep)
+    print('\n\n' + 'Reportaje de lluvias del año.'.center(screen))
+    print('Columnas = mes, filas = dias, cada celda representa lluvia en mm.'.center(screen))
+    print(f'"{missing}" representa 0 lluvia registrada.'.center(screen) + '\n')
+    
+    output = ''
+    linea = ' '.center(sep)
+    for i in range(cols): # Etiquetas de columnas (meses)
+        linea += str(i + 1).center(sep)
+    output += linea.center(screen) + '\n'
+    output += ((' ' * sep) + ('-' * (sep * (cols)))).center(screen) + '\n'
+    
+    for i, fila in enumerate(matriz_ord):
+        linea = ''
+        linea += str(i + 1).center(sep-1) + '|' # Etiqueta de dia
+
+        for item in fila:
+            it = item
+            if it == 0: # dia sin lluvia
+                it = missing
+            linea += str(it).center(sep) # Dato de lluvia
         output += linea.center(screen) + '\n'
-        output += ((' ' * sep) + ('-' * (sep * (cols)))).center(screen) + '\n'
-        # Separador
+    print(output)
 
-        for i, fila in enumerate(matriz_ord):
-            linea = ''
-            linea += str(i + 1).center(sep-1) + '|' # Etiqueta de dia
-
-            for item in fila:
-                it = item
-                if it == 0: # dia sin lluvia
-                    it = missing
-                linea += str(it).center(sep) # Dato de lluvia
-            output += linea.center(screen) + '\n'
-        print(output)
-
-        lluvia = suma_matriz(matriz_ord)
-        print(f'La lluvia total del año fue de {lluvia}mm'.center(screen))
-        archivo.close()
+    lluvia = suma_matriz(matriz_ord)
+    print(f'La lluvia total del año fue de {lluvia}mm'.center(screen))
 
 def __main__():
     
     try:
-        datos_lluvia = crear_datos_lluvia()
         filename = 'rain_data.txt'
-        escribir_matriz(datos_lluvia, filename)
         
-        imprime_matriz(filename)
+        datos_lluvia = crear_datos_lluvia()
+        escribir_matriz(datos_lluvia, filename)
+        matriz = extrae_matriz(filename)
+        matriz_ord = ordena_matriz_mes(matriz)
+        imprime_matriz(matriz_ord)
 
     except IOError as error:
         print(f'Ocurrio un error: {error}')
