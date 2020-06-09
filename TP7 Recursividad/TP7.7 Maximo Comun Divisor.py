@@ -37,11 +37,10 @@ def ingreso_lista():
     return v
 
 def lista_unpack(lista):
-    'Desempaca los valores de una lista para pasarlos a '
-    if len(lista) == 2:
-        x, y = lista[0], lista[1]
-    else:
-        x, y = lista[:-1], lista[-1]
+    'Desempaca los valores de una lista en dos variables '
+    *x, y = lista
+    if len(x) == 1:
+        x = x[0]
     return x, y
 
 def MCD(X, Y=None):
