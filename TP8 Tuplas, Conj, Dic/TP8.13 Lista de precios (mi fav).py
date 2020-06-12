@@ -5,7 +5,7 @@ programa para crearlo, incrementar los precios de los cuadernos en un
 e indicar cuál es el ítem más costoso que venden en el comercio
 '''
 def opcion(texto='Si o no?: '):
-    'Pregunta opcion, devuelve 1 para positivo, 0 para negativo, -1 para ninguna'
+    'Pregunta opcion, devuelve True para positivo, False para negativo'
     si = ['si', 's', '1']
     no = ['no', 'n', '0']
     while True:
@@ -34,8 +34,6 @@ def ingreso_float(texto='Ingrese un numero: ', tipo='numero'):
 def crea_lista_precios(categoria='Base/'):
     ''''
     Crea lista de precios por categoria recursivamente
-    
-    Al ingresar campo vacio pregunta opcion nueva categoria o terminar la carga
     '''
     dic = {}
     nueva = 'Nueva Categoria'
@@ -49,9 +47,8 @@ def crea_lista_precios(categoria='Base/'):
                 dic[clave] = precio
         
         elif clave and clave in nueva:
-            if opcion('Desea crear una nueva categoria?: '):
-                nueva_cat = input('Ingrese el nombre de la categoria: ').strip().title()
-                dic[nueva_cat] = crea_lista_precios(categoria + nueva_cat + r'/')
+            nueva_cat = input('Ingrese el nombre de la categoria: ').strip().title()
+            dic[nueva_cat] = crea_lista_precios(categoria + nueva_cat + r'/')
         else:
             break
     return dic
