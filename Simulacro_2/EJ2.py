@@ -14,10 +14,7 @@ cada caso
 
 def cantidad_digitos(cadena, i=0):
     'Devuelve cantidad de digitos en una cadena'
-    if cadena[i:][0].isdigit():
-        empieza_numero = 1
-    else:
-        empieza_numero = 0
+    empieza_numero = int(cadena[i].isdigit())
     if len(cadena[i:]) == 1:
         return empieza_numero
     else:

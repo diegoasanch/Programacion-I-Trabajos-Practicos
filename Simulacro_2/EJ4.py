@@ -6,6 +6,9 @@ palabras, generar y gestionar una excepcion si se ingresan numeros, espacios
 o símbolos, aceptar solo palabras con caractgeres alfabeticos.
 '''
 
+letras_comunes = lambda cad1, cad2: list(set(cad1.lower()) & set(cad2.lower()))
+'Devuelve una lista con las letras comunes entre las cadenas'
+
 def ingreso_palabra(texto):
     'Valida el ingreso de una palabra solo alfabetica'
     while True:
@@ -20,10 +23,6 @@ def ingreso_palabra(texto):
         except ValueError as error:
             print(f'\nPalabra invalida {error}')
     return palabra
-
-letras_comunes = lambda cad1, cad2: list(set(cad1.lower()) & set(cad2.lower()))
-'Devuelve una lista con las letras comunes entre las cadenas'
-
 
 def __main__():
     while True:
