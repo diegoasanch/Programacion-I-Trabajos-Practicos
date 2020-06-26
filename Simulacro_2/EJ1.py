@@ -10,12 +10,16 @@ por completo el archivo de frases en memoria. Por ejemplo:
     debe resolver correctametne un subproblema.
 '''
 
+limpia_palabra = lambda pal: ''.join(filter(lambda letr: letr.isalpha(), pal))
+'Filtra los elementos no alfabeticos'
+
 def palabra_mas_larga(linea):
     'devuelve la palabra mas larga'
     mas_larga = ''
     for palabra in linea.split():
-        if len(set(palabra)) > len(set(mas_larga)):
-            mas_larga = palabra
+        palabra_limpia = limpia_palabra(palabra)
+        if len(set(palabra_limpia)) > len(set(mas_larga)):
+            mas_larga = palabra_limpia
     return mas_larga
 
 def extrae_mas_largas(archivo1, archivo2):
@@ -30,7 +34,7 @@ def extrae_mas_largas(archivo1, archivo2):
         print('No se pudo abrir el archivo')
     else:
         for linea in ar1:
-            mas_larga = palabra_mas_larga(linea) # max(linea.split(), key=lambda palabra: len(set(palabra)))
+            mas_larga = palabra_mas_larga(linea.lower()) # max(linea.split(), key=lambda palabra: len(set(palabra)))
             ar2.write(mas_larga + '\n')
         ar1.close()
         ar2.close()

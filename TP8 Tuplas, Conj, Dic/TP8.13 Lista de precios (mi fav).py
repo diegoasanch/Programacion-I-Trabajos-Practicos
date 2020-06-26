@@ -107,55 +107,55 @@ def mayor_valor(diccionario, mayor=(None, 0)):
 def __main__():
     
     # Diccionario de prueba
-    lista_precios ={
-        'Cuadernos': {
-            'Cuadernos': {
-                'Linea Simple': 100,
-                'Cuadriculado': 120,
-                'Sin Lineas': 90
-            },
-            'Libretas': {
-                'Carton': 100,
-                'Espiral': 130,
-                'Perforada': 150
-            },
-        },
-        'Escritura': {
-            'Lapices': {
-                'Hb': 15,
-                'Caja Lapices': 100,
-                'Numero 2': 10,
-                'De Color': 15,
-                'Sacapuntas': 20
-            },
-            'Marcadores': {
-                'De Color': 17,
-                'Sharpie': 25,
-                'De Acrilico': 20,
-            },
-            'Borradores': {
-                'Liquid Paper': 30,
-                'Blanco': 10,
-                'Rosado': 10,
-                'De Tinta': 15,
-                'Cinta Liquidpaper': 50
-            }
-        },
-        'Libros': {
-            'Ciencia': {
-                'A Brief History of Time': 500,
-                'The meaning of it All': 600,
-                'Theory of Everything': 550
-            },
-            'Utilidad': {
-                'Guia Telefonica': 100,
-                'Clean Code': 420,
-                'Automate the Boring Stuff': 300
-            }
-        }
-    }
+    # lista_precios ={
+    #     'Cuadernos': {
+    #         'Cuadernos': {
+    #             'Linea Simple': 100,
+    #             'Cuadriculado': 120,
+    #             'Sin Lineas': 90
+    #         },
+    #         'Libretas': {
+    #             'Carton': 100,
+    #             'Espiral': 130,
+    #             'Perforada': 150
+    #         },
+    #     },
+    #     'Escritura': {
+    #         'Lapices': {
+    #             'Hb': 15,
+    #             'Caja Lapices': 100,
+    #             'Numero 2': 10,
+    #             'De Color': 15,
+    #             'Sacapuntas': 20
+    #         },
+    #         'Marcadores': {
+    #             'De Color': 17,
+    #             'Sharpie': 25,
+    #             'De Acrilico': 20,
+    #         },
+    #         'Borradores': {
+    #             'Liquid Paper': 30,
+    #             'Blanco': 10,
+    #             'Rosado': 10,
+    #             'De Tinta': 15,
+    #             'Cinta Liquidpaper': 50
+    #         }
+    #     },
+    #     'Libros': {
+    #         'Ciencia': {
+    #             'A Brief History of Time': 500,
+    #             'The meaning of it All': 600,
+    #             'Theory of Everything': 550
+    #         },
+    #         'Utilidad': {
+    #             'Guia Telefonica': 100,
+    #             'Clean Code': 420,
+    #             'Automate the Boring Stuff': 300
+    #         }
+    #     }
+    # }
     try:
-        # lista_precios = crea_lista_precios(r'Libreria/')
+        lista_precios = crea_lista_precios(r'Libreria/')
         
         print('Lista de precios:\n')
         imprime_dic(lista_precios)

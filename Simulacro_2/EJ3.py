@@ -8,12 +8,14 @@ sus repeticiones, teniendo en cuenta:
 Desarrollar un programa principal para ingresar una frase y luego mostrar por
 pantalla el listado de palabras y sus repeticiones ordenado alfabeticamente.
 '''
+limpia_palabra = lambda pal: ''.join(filter(lambda letra: letra.isalpha(), pal))
+'Filtra los elementos no alfabeticos'
 
 def repeticiones_palabras(frase):
     'Devuelve diccionario con cuantas veces esta cada palabra'
     dic = {}
-    for palabra in frase.split():
-        palabra_limpia = ''.join(filter(lambda letra: letra.isalpha(), palabra)).lower()
+    for palabra in frase.lower().split():
+        palabra_limpia = limpia_palabra(palabra)
         if palabra_limpia != '':
             if palabra_limpia in dic:
                 dic[palabra_limpia] += 1
