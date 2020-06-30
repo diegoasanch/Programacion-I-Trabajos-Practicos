@@ -1,0 +1,19 @@
+Bello es mejor que feo.: 1
+Explícito es mejor que implícito.: 3
+Simple es mejor que complejo.: 1
+Complejo es mejor que complicado.: 1
+Plano es mejor que anidado.: 1
+Espaciado es mejor que denso.: 1
+La legibilidad es importante.: 1
+Los casos especiales no son lo suficientemente especiales como para romper las reglas.: 1
+Sin embargo la practicidad le gana a la pureza.: 1
+Los errores nunca deberían pasar silenciosamente.: 2
+A menos que se silencien explícitamente.: 2
+Frente a la ambigüedad, evitar la tentación de adivinar.: 3
+Debería haber una, y preferiblemente solo una, manera obvia de hacerlo.: 2
+A pesar de que esa manera no sea obvia a menos que seas Holandés.: 3
+Ahora es mejor que nunca.: 1
+A pesar de que nunca es muchas veces mejor que *ahora* mismo.: 1
+Si la implementación es difícil de explicar, es una mala idea.: 3
+Si la implementación es fácil de explicar, puede que sea una buena idea.: 3
+Los espacios de nombres son una gran idea, ¡tengamos más de esos!: 3
